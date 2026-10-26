@@ -63,6 +63,33 @@ app.get('/students', async (req, res) => {
   }
 });
 
+// Get a single student by ID
+app.get('/students/:id', async (req, res) => {
+  try {
+    const { id } = req.params; // Grabs the ID from the URL
+    const student = await pool.query(`
+      SELECT 
+        students.id, 
+        students.student_name, 
+        houses.house_name AS house, 
+        houses.house_color 
+      FROM students 
+      JOIN houses ON students.fk_house = houses.id 
+      WHERE students.id = $1
+    `, [id]);
+
+    // Check if the student actually exists
+    if (student.rows.length === 0) {
+      return res.status(404).json({ error: 'Student not found' });
+    }
+
+    res.json(student.rows[0]); // Return the single student object
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 // Get all teachers with their house names
 app.get('/teachers', async (req, res) => {
   try {
