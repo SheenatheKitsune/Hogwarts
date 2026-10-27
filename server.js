@@ -1,13 +1,11 @@
-const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
-const pool = require('./db');
+import express from 'express';
+import {pool} from './db.js';
+import * as housesRepository from './repositories/houses.repository.js';
 
 const app = express();
 const PORT = process.env.PORT || 2712;
 
 // Middleware
-app.use(cors());
 app.use(express.json());
 
 // Test route
@@ -19,8 +17,8 @@ app.get('/', (req, res) => {
 // Get all houses from the database
 app.get('/houses', async (req, res) => {
   try {
-    const allHouses = await pool.query('SELECT * FROM houses');
-    res.json(allHouses.rows); // Send the rows back as JSON
+    const allHouses = await housesRepository.getAllHouses();
+    res.json(allHouses); // Send the rows back as JSON
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
