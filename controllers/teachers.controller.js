@@ -1,6 +1,7 @@
 import * as teachersRepository from '../repositories/teachers.repository.js';
+import { insertTeacher } from '../repositories/teachers.repository.js';
 
-// Get all teachers controller
+// Get all teachers
 export async function getAllTeachers(req, res) {
   try {
     const allTeachers = await teachersRepository.getAllTeachers();
@@ -11,7 +12,7 @@ export async function getAllTeachers(req, res) {
   }
 }
 
-// Get a single teacher by ID controller
+// Get a single teacher by ID
 export async function getTeacherById(req, res) {
   try {
     const { id } = req.params;
@@ -26,4 +27,22 @@ export async function getTeacherById(req, res) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
+}
+
+// Create a new teacher
+export async function createNewTeacher(req, res) {
+    try {
+        const { teacher_name, fk_house } = req.body;
+
+        // Validation: ensure both fields are provided
+        if (!teacher_name || !fk_house) {
+            return res.status(400).json({ error: "teacher_name and fk_house are required!" });
+        }
+
+        const newTeacher = await insertTeacher(teacher_name, fk_house);
+        res.status(201).json(newTeacher);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+    }
 }
