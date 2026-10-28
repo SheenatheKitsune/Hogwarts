@@ -1,6 +1,8 @@
 import express from 'express';
 import {pool} from './db.js';
 import * as housesRepository from './repositories/houses.repository.js';
+import { getAllHouses, getHouseById } from './controllers/houses.controller.js';
+import housesRouter from './routers/houses.router.js';
 
 const app = express();
 const PORT = process.env.PORT || 2712;
@@ -13,17 +15,8 @@ app.get('/', (req, res) => {
   res.send('Welcome to the Hogwarts API! ⚡🧙‍♂️');
 });
 
-// --- NEW HOGWARTS ROUTE || Making for the different tables!!!---
-// Get all houses from the database
-app.get('/houses', async (req, res) => {
-  try {
-    const allHouses = await housesRepository.getAllHouses();
-    res.json(allHouses); // Send the rows back as JSON
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
+/* Houses all and singles */
+app.use(housesRouter);
 
 // Get all courses from the database
 app.get('/courses', async (req, res) => {

@@ -1,10 +1,11 @@
 info:
-  name: GET all courses
+  name: GET all teachers
   type: http
+  seq: 1
 
 http:
   method: GET
-  url: http://localhost:2712/courses
+  url: http://localhost:2712/teachers
   auth: inherit
 
 settings:
