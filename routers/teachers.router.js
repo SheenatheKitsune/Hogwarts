@@ -6,5 +6,6 @@ const teachersRouter = express.Router();
 teachersRouter.get('/teachers', teachersController.getAllTeachers);
 teachersRouter.get('/teachers/:id', teachersController.getTeacherById);
 teachersRouter.post('/teachers', teachersController.createNewTeacher);
+teachersRouter.put('/teachers/:id', teachersController.updateExistingTeacher);
 teachersRouter.delete('/teachers/:id', teachersController.removeTeacher);
 export default teachersRouter;
