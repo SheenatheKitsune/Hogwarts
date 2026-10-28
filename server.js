@@ -1,7 +1,5 @@
 import express from 'express';
 import {pool} from './db.js';
-import * as housesRepository from './repositories/houses.repository.js';
-import { getAllHouses, getHouseById } from './controllers/houses.controller.js';
 import housesRouter from './routers/houses.router.js';
 
 const app = express();
