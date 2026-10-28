@@ -1,6 +1,7 @@
 import express from 'express';
 import {pool} from './db.js';
 import housesRouter from './routers/houses.router.js';
+import teachersRouter from './routers/teachers.router.js';
 
 const app = express();
 const PORT = process.env.PORT || 2712;
@@ -13,8 +14,12 @@ app.get('/', (req, res) => {
   res.send('Welcome to the Hogwarts API! ⚡🧙‍♂️');
 });
 
-/* Houses all and singles */
+/* Router for houses */
 app.use(housesRouter);
+
+/* Router for teachers */
+app.use(teachersRouter);
+
 
 // Get all courses from the database
 app.get('/courses', async (req, res) => {
@@ -73,24 +78,6 @@ app.get('/students/:id', async (req, res) => {
     }
 
     res.json(student.rows[0]); // Return the single student object
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
-
-// Get all teachers with their house names
-app.get('/teachers', async (req, res) => {
-  try {
-    const allTeachers = await pool.query(`
-      SELECT 
-        teachers.id, 
-        teachers.teacher_name, 
-        houses.house_name AS house
-      FROM teachers 
-      JOIN houses ON teachers.fk_house = houses.id
-    `);
-    res.json(allTeachers.rows);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
