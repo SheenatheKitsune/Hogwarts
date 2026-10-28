@@ -46,3 +46,44 @@ export async function createNewTeacher(req, res) {
         res.status(500).json({ error: "Internal server error" });
     }
 }
+
+// Update an existing teacher
+export async function updateExistingTeacher(req, res) {
+    try {
+        const { id } = req.params;
+        const { teacher_name, fk_house } = req.body;
+
+        // Validation: ensure at least one field or both are provided (depending on your preference)
+        if (!teacher_name || !fk_house) {
+            return res.status(400).json({ error: "teacher_name and fk_house are required for update!" });
+        }
+
+        const updatedTeacher = await teachersRepository.updateTeacher(id, teacher_name, fk_house);
+
+        if (!updatedTeacher) {
+            return res.status(404).json({ error: 'Teacher not found' });
+        }
+
+        res.json(updatedTeacher);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+
+// Delete a teacher
+export async function removeTeacher(req, res) {
+    try {
+        const { id } = req.params;
+        const deletedTeacher = await teachersRepository.deleteTeacher(id);
+
+        if (!deletedTeacher) {
+            return res.status(404).json({ error: 'Teacher not found' });
+        }
+
+        res.json({ message: 'Teacher deleted successfully', deletedTeacher });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}

@@ -1,5 +1,5 @@
 info:
-  name: POST a teacher
+  name: POST teacher
   type: http
   seq: 1
 
