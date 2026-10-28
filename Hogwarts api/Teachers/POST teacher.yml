@@ -6,6 +6,13 @@ info:
 http:
   method: POST
   url: http://localhost:2712/teachers
+  body:
+    type: json
+    data: |-
+      {
+        "teacher_name": "New teacher",
+        "fk_house": 4
+      }
   auth: inherit
 
 settings:

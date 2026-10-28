@@ -5,7 +5,14 @@ info:
 
 http:
   method: PUT
-  url: http://localhost:2712/teachers
+  url: http://localhost:2712/teachers/13
+  body:
+    type: json
+    data: |-
+      {
+        "teacher_name": "Updated name",
+        "fk_house": 3
+      }
   auth: inherit
 
 settings:
