@@ -1,0 +1,18 @@
+info:
+  name: DELETE student
+  type: http
+  seq: 1
+
+http:
+  method: DELETE
+  url: http://localhost:2712/students/27
+  body:
+    type: json
+    data: ""
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

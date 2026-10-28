@@ -1,0 +1,23 @@
+info:
+  name: PUT student
+  type: http
+  seq: 1
+
+http:
+  method: PUT
+  url: http://localhost:2712/students/27
+  body:
+    type: json
+    data: |-
+      {
+        "student_name": "Updated name",
+        "fk_house": 1,
+        "student_year": 3
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

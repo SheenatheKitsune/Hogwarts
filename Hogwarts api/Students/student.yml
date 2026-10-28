@@ -1,0 +1,23 @@
+info:
+  name: student
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:2712/students
+  body:
+    type: json
+    data: |-
+      {
+        "student_name": "New student",
+        "fk_house": 2,
+        "student_year": 6
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
