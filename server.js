@@ -1,5 +1,4 @@
 import express from 'express';
-import {pool} from './db.js';
 /* Houses */
 import housesRouter from './routers/houses.router.js';
 /* Teachers */
@@ -8,6 +7,8 @@ import { createNewTeacher } from './controllers/teachers.controller.js';
 /* Students */
 import studentsRouter from './routers/students.router.js';
 import { createNewStudent } from './controllers/students.controller.js';
+/* Courses */
+import coursesRouter from './routers/courses.router.js';
 
 const app = express();
 const PORT = process.env.PORT || 2712;
@@ -30,6 +31,9 @@ app.post('/teachers', createNewTeacher);
 /* Router for students */
 app.use(studentsRouter);
 app.post('/students', createNewStudent);
+
+/* Router for courses */
+app.use(coursesRouter);
 
 // Start server
 app.listen(PORT, () => {

@@ -5,7 +5,7 @@ info:
 
 http:
   method: DELETE
-  url: http://localhost:2712/students/27
+  url: http://localhost:2712/students/28
   body:
     type: json
     data: ""
